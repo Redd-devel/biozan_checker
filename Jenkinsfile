@@ -8,7 +8,7 @@ pipeline {
         stage('Preparing') {
             steps {
                 sh '''python3 -m venv envir
-                      . ${WORKDIR}/envir/bin/activate > /dev/null
+                      . ${WORKSPACE}/envir/bin/activate > /dev/null
                       pip install -r requirements.txt'''
             }
         }
