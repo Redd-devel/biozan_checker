@@ -20,7 +20,7 @@ soup_products = BeautifulSoup(products.text, "lxml")
 data = soup_products.find_all("div", class_="product-wrap")
 
 for item in data:
-	name = item.find("div", class_="product-thumbs-name").text.trim()
+	name = item.find("div", class_="product-thumbs-name").text.strip()
 	price = item.find("div", class_="product-thumbs-price").text
 	if name.startswith("Пакет"):
 		continue
