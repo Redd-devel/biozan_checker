@@ -24,7 +24,7 @@ for item in data:
 	price = re.sub(r'(\d)\s(\d)', r'\1\2', item.find("div", class_="product-thumbs-price").text)
 	if name.startswith("Пакет"):
 		continue
-	print(name, price)
+	print(name.ljust(83), price)
 print('-'*30)
 
 soup_gift = BeautifulSoup(gift.text, "lxml")
