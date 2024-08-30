@@ -4,6 +4,10 @@ pipeline {
         timestamps()
         buildDiscarder(logRotator(numToKeepStr: '30'))
     }
+    parameters {
+        booleanParam defaultValue: false, description: 'Show products', name: 'isProducts'
+    }
+
     stages {
         stage('Preparing') {
             steps {

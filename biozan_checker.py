@@ -15,17 +15,20 @@ gift = session.get(root_url+"/my/account/#gift", headers=headers)
 
 session.close()
 
+def get_products():
+    soup_products = BeautifulSoup(products.text, "lxml")
+    data = soup_products.find_all("div", class_="product-wrap")
 
-soup_products = BeautifulSoup(products.text, "lxml")
-data = soup_products.find_all("div", class_="product-wrap")
+    for item in data:
+	    name = item.find("div", class_="product-thumbs-name").text.strip()
+	    price = re.sub(r'(\d)\s(\d)', r'\1\2', item.find("div", class_="product-thumbs-price").text)
+	    if name.startswith("Пакет"):
+		    continue
+	    print(name.ljust(83), price)
+    print('-'*93)
 
-for item in data:
-	name = item.find("div", class_="product-thumbs-name").text.strip()
-	price = re.sub(r'(\d)\s(\d)', r'\1\2', item.find("div", class_="product-thumbs-price").text)
-	if name.startswith("Пакет"):
-		continue
-	print(name.ljust(83), price)
-print('-'*30)
+if (os.environ.get("isProducts")):
+	get_products()
 
 soup_gift = BeautifulSoup(gift.text, "lxml")
 scraped_score = soup_gift.find("ul", class_="dashboard-tabs").find("li").next_sibling.next_sibling.next_sibling.next_sibling.find("b").text
